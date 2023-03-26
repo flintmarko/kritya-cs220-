@@ -1,0 +1,44 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x134705d60 .scope module, "full_adder" "full_adder" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /INPUT 1 "c_in";
+    .port_info 3 /OUTPUT 1 "sum";
+    .port_info 4 /OUTPUT 1 "c_out";
+o0x128008010 .functor BUFZ 1, C4<z>; HiZ drive
+o0x128008040 .functor BUFZ 1, C4<z>; HiZ drive
+L_0x134716510 .functor XOR 1, o0x128008010, o0x128008040, C4<0>, C4<0>;
+o0x128008070 .functor BUFZ 1, C4<z>; HiZ drive
+L_0x1347165c0 .functor XOR 1, L_0x134716510, o0x128008070, C4<0>, C4<0>;
+L_0x1347166b0 .functor AND 1, L_0x134716510, o0x128008070, C4<1>, C4<1>;
+L_0x1347167a0 .functor AND 1, o0x128008010, o0x128008040, C4<1>, C4<1>;
+L_0x1347168d0 .functor OR 1, L_0x1347166b0, L_0x1347167a0, C4<0>, C4<0>;
+v0x134705f80_0 .net "a", 0 0, o0x128008010;  0 drivers
+v0x134716000_0 .net "b", 0 0, o0x128008040;  0 drivers
+v0x1347160a0_0 .net "c_in", 0 0, o0x128008070;  0 drivers
+v0x134716130_0 .net "c_out", 0 0, L_0x1347168d0;  1 drivers
+v0x1347161d0_0 .net "f", 0 0, L_0x134716510;  1 drivers
+v0x1347162b0_0 .net "g", 0 0, L_0x1347166b0;  1 drivers
+v0x134716350_0 .net "h", 0 0, L_0x1347167a0;  1 drivers
+v0x1347163f0_0 .net "sum", 0 0, L_0x1347165c0;  1 drivers
+E_0x134705f50 .event edge, v0x1347163f0_0, v0x134716130_0;
+    .scope S_0x134705d60;
+T_0 ;
+    %wait E_0x134705f50;
+    %vpi_call 2 12 "$display", v0x1347163f0_0, v0x134716130_0 {0 0 0};
+    %jmp T_0;
+    .thread T_0, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "p1.v";

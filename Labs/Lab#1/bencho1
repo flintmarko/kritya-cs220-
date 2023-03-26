@@ -1,0 +1,72 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x139705ad0 .scope module, "bencho1" "bencho1" 2 1;
+ .timescale 0 0;
+v0x139716410_0 .var "a", 0 0;
+v0x1397164c0_0 .var "b", 0 0;
+v0x139716550_0 .var "c", 0 0;
+v0x139716600_0 .net "c_out", 0 0, L_0x139716ae0;  1 drivers
+v0x1397166b0_0 .net "sum", 0 0, L_0x1397168b0;  1 drivers
+S_0x139705c40 .scope module, "uut" "full_adder" 2 4, 3 1 0, S_0x139705ad0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /INPUT 1 "c_in";
+    .port_info 3 /OUTPUT 1 "sum";
+    .port_info 4 /OUTPUT 1 "c_out";
+L_0x139716780 .functor XOR 1, v0x139716410_0, v0x1397164c0_0, C4<0>, C4<0>;
+L_0x1397168b0 .functor XOR 1, L_0x139716780, v0x139716550_0, C4<0>, C4<0>;
+L_0x1397169e0 .functor AND 1, L_0x139716780, v0x139716550_0, C4<1>, C4<1>;
+L_0x139716a50 .functor AND 1, v0x139716410_0, v0x1397164c0_0, C4<1>, C4<1>;
+L_0x139716ae0 .functor OR 1, L_0x1397169e0, L_0x139716a50, C4<0>, C4<0>;
+v0x139705e80_0 .net "a", 0 0, v0x139716410_0;  1 drivers
+v0x139715f00_0 .net "b", 0 0, v0x1397164c0_0;  1 drivers
+v0x139715fa0_0 .net "c_in", 0 0, v0x139716550_0;  1 drivers
+v0x139716030_0 .net "c_out", 0 0, L_0x139716ae0;  alias, 1 drivers
+v0x1397160d0_0 .net "f", 0 0, L_0x139716780;  1 drivers
+v0x1397161b0_0 .net "g", 0 0, L_0x1397169e0;  1 drivers
+v0x139716250_0 .net "h", 0 0, L_0x139716a50;  1 drivers
+v0x1397162f0_0 .net "sum", 0 0, L_0x1397168b0;  alias, 1 drivers
+E_0x139705aa0 .event edge, v0x1397162f0_0, v0x139716030_0;
+    .scope S_0x139705c40;
+T_0 ;
+    %wait E_0x139705aa0;
+    %vpi_call 3 12 "$display", v0x1397162f0_0, v0x139716030_0 {0 0 0};
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0x139705ad0;
+T_1 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x139716410_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x1397164c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x139716550_0, 0, 1;
+    %delay 100, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x139716410_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x1397164c0_0, 0, 1;
+    %delay 100, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x139716550_0, 0, 1;
+    %delay 100, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x139716410_0, 0, 1;
+    %delay 100, 0;
+    %vpi_call 2 18 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "bencho1.v";
+    "p1.v";

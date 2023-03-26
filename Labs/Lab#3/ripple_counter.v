@@ -1,0 +1,123 @@
+module ripple_carry_counter(q, clk,reset,dir);
+output reg [3:0] q;
+input clk, reset,dir;
+always@(negedge clk)
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin    
+        q[0]<=~q[0];
+    end
+end
+always@(negedge q[0])
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin
+    if(dir==1)
+    begin
+        q[1]<=~q[1];
+    end
+    else
+    begin
+        q[1]<=q[1];
+    end
+    end
+end
+always@(negedge ~q[0])
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin
+    if(dir==1)
+    begin
+        q[1]<=q[1];
+    end
+    else
+    begin
+        q[1]<=~q[1];
+    end
+    end
+end
+always@(negedge q[1])
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin
+    if(dir==1)
+    begin
+        q[2]<=~q[2];
+    end
+    else
+    begin
+        q[2]<=q[2];
+    end
+    end
+end
+always@(negedge ~q[1])
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin
+    if(dir==1)
+    begin
+        q[2]<=q[2];
+    end
+    else
+    begin
+        q[2]<=~q[2];
+    end
+    end
+end
+always@(negedge q[2])
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin
+    if(dir==1)
+    begin
+        q[3]<=~q[3];
+    end
+    else
+    begin
+        q[3]<=q[3];
+    end
+    end
+end
+always@(negedge ~q[2])
+begin
+    if(reset)
+    begin
+        q<=3'b0;
+    end
+    else
+    begin
+    if(dir==1)
+    begin
+        q[3]<=q[3];
+    end
+    else
+    begin
+        q[3]<=~q[3];
+    end
+    end
+end
+endmodule

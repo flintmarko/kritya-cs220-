@@ -1,0 +1,84 @@
+module test;
+reg clk,reset;
+wire [3:0]q;
+rcc uut (.clk(clk),.reset(reset),.q(q));
+initial begin
+    clk=0;
+    forever begin
+        #10 clk=~clk;
+    end
+end
+initial
+begin
+    reset=1'b1;
+    #100;
+    $display(q);
+    reset=1'b0;
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #20;
+    $display(q);
+    #100;
+    $finish;
+end
+endmodule

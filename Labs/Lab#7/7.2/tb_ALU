@@ -1,0 +1,126 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x129606940 .scope module, "testALU" "testALU" 2 1;
+ .timescale 0 0;
+v0x129625e10_0 .var "inp1", 31 0;
+v0x129625ea0_0 .var "inp2", 31 0;
+v0x129625f30_0 .var "opc", 2 0;
+v0x129625fc0_0 .net "out", 31 0, L_0x129627860;  1 drivers
+S_0x12960a130 .scope module, "uut" "alu" 2 5, 3 1 0, S_0x129606940;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "inp1";
+    .port_info 1 /INPUT 32 "inp2";
+    .port_info 2 /OUTPUT 32 "out";
+    .port_info 3 /INPUT 3 "opc";
+L_0x1296264b0 .functor NOT 32, v0x129625ea0_0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+L_0x129626bc0 .functor AND 32, v0x129625e10_0, v0x129625ea0_0, C4<11111111111111111111111111111111>, C4<11111111111111111111111111111111>;
+L_0x129626fa0 .functor OR 32, v0x129625e10_0, v0x129625ea0_0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v0x129606ab0_0 .net *"_ivl_1", 0 0, L_0x129626070;  1 drivers
+v0x129624a60_0 .net *"_ivl_10", 31 0, L_0x129626520;  1 drivers
+L_0x110040010 .functor BUFT 1, C4<00000000000000000000000000000001>, C4<0>, C4<0>, C4<0>;
+v0x129624b10_0 .net/2u *"_ivl_12", 31 0, L_0x110040010;  1 drivers
+v0x129624bd0_0 .net *"_ivl_14", 31 0, L_0x129626680;  1 drivers
+v0x129624c80_0 .net *"_ivl_16", 31 0, L_0x1296267c0;  1 drivers
+v0x129624d70_0 .net *"_ivl_19", 0 0, L_0x129626920;  1 drivers
+v0x129624e20_0 .net *"_ivl_20", 31 0, L_0x1296269c0;  1 drivers
+v0x129624ed0_0 .net *"_ivl_22", 31 0, L_0x129626bc0;  1 drivers
+v0x129624f80_0 .net *"_ivl_24", 31 0, L_0x129626c30;  1 drivers
+v0x129625090_0 .net *"_ivl_26", 31 0, L_0x129626cd0;  1 drivers
+v0x129625140_0 .net *"_ivl_29", 0 0, L_0x129626df0;  1 drivers
+v0x1296251f0_0 .net *"_ivl_3", 0 0, L_0x129626170;  1 drivers
+v0x1296252a0_0 .net *"_ivl_31", 0 0, L_0x129626e90;  1 drivers
+v0x129625350_0 .net *"_ivl_32", 31 0, L_0x129626fa0;  1 drivers
+v0x129625400_0 .net *"_ivl_34", 31 0, L_0x129627010;  1 drivers
+v0x1296254b0_0 .net *"_ivl_36", 31 0, L_0x1296270b0;  1 drivers
+v0x129625560_0 .net *"_ivl_39", 0 0, L_0x129627250;  1 drivers
+v0x1296256f0_0 .net *"_ivl_40", 31 0, L_0x1296273f0;  1 drivers
+v0x129625780_0 .net *"_ivl_42", 31 0, L_0x129626ac0;  1 drivers
+v0x129625830_0 .net *"_ivl_44", 31 0, L_0x129627720;  1 drivers
+v0x1296258e0_0 .net *"_ivl_5", 0 0, L_0x129626210;  1 drivers
+v0x129625990_0 .net *"_ivl_6", 31 0, L_0x129626370;  1 drivers
+v0x129625a40_0 .net *"_ivl_8", 31 0, L_0x1296264b0;  1 drivers
+v0x129625af0_0 .net "inp1", 31 0, v0x129625e10_0;  1 drivers
+v0x129625ba0_0 .net "inp2", 31 0, v0x129625ea0_0;  1 drivers
+v0x129625c50_0 .net "opc", 2 0, v0x129625f30_0;  1 drivers
+v0x129625d00_0 .net "out", 31 0, L_0x129627860;  alias, 1 drivers
+L_0x129626070 .part v0x129625f30_0, 2, 1;
+L_0x129626170 .part v0x129625f30_0, 1, 1;
+L_0x129626210 .part v0x129625f30_0, 0, 1;
+L_0x129626370 .arith/sum 32, v0x129625e10_0, v0x129625ea0_0;
+L_0x129626520 .arith/sum 32, v0x129625e10_0, L_0x1296264b0;
+L_0x129626680 .arith/sum 32, L_0x129626520, L_0x110040010;
+L_0x1296267c0 .functor MUXZ 32, L_0x129626680, L_0x129626370, L_0x129626210, C4<>;
+L_0x129626920 .part v0x129625f30_0, 0, 1;
+L_0x1296269c0 .arith/sub 32, v0x129625e10_0, v0x129625ea0_0;
+L_0x129626c30 .functor MUXZ 32, L_0x129626bc0, L_0x1296269c0, L_0x129626920, C4<>;
+L_0x129626cd0 .functor MUXZ 32, L_0x129626c30, L_0x1296267c0, L_0x129626170, C4<>;
+L_0x129626df0 .part v0x129625f30_0, 1, 1;
+L_0x129626e90 .part v0x129625f30_0, 0, 1;
+L_0x129627010 .shift/l 32, v0x129625e10_0, v0x129625ea0_0;
+L_0x1296270b0 .functor MUXZ 32, L_0x129627010, L_0x129626fa0, L_0x129626e90, C4<>;
+L_0x129627250 .part v0x129625f30_0, 0, 1;
+L_0x1296273f0 .shift/r 32, v0x129625e10_0, v0x129625ea0_0;
+L_0x129626ac0 .functor MUXZ 32, v0x129625e10_0, L_0x1296273f0, L_0x129627250, C4<>;
+L_0x129627720 .functor MUXZ 32, L_0x129626ac0, L_0x1296270b0, L_0x129626df0, C4<>;
+L_0x129627860 .functor MUXZ 32, L_0x129627720, L_0x129626cd0, L_0x129626070, C4<>;
+    .scope S_0x129606940;
+T_0 ;
+    %pushi/vec4 9669, 0, 32;
+    %store/vec4 v0x129625e10_0, 0, 32;
+    %pushi/vec4 8989, 0, 32;
+    %store/vec4 v0x129625ea0_0, 0, 32;
+    %pushi/vec4 7, 0, 3;
+    %store/vec4 v0x129625f30_0, 0, 3;
+    %delay 100, 0;
+    %vpi_call 2 10 "$display", v0x129625fc0_0 {0 0 0};
+    %pushi/vec4 9669, 0, 32;
+    %store/vec4 v0x129625e10_0, 0, 32;
+    %pushi/vec4 8989, 0, 32;
+    %store/vec4 v0x129625ea0_0, 0, 32;
+    %pushi/vec4 6, 0, 3;
+    %store/vec4 v0x129625f30_0, 0, 3;
+    %delay 100, 0;
+    %vpi_call 2 14 "$display", v0x129625fc0_0 {0 0 0};
+    %pushi/vec4 9669, 0, 32;
+    %store/vec4 v0x129625e10_0, 0, 32;
+    %pushi/vec4 8989, 0, 32;
+    %store/vec4 v0x129625ea0_0, 0, 32;
+    %pushi/vec4 5, 0, 3;
+    %store/vec4 v0x129625f30_0, 0, 3;
+    %delay 100, 0;
+    %vpi_call 2 18 "$display", v0x129625fc0_0 {0 0 0};
+    %pushi/vec4 9669, 0, 32;
+    %store/vec4 v0x129625e10_0, 0, 32;
+    %pushi/vec4 8989, 0, 32;
+    %store/vec4 v0x129625ea0_0, 0, 32;
+    %pushi/vec4 4, 0, 3;
+    %store/vec4 v0x129625f30_0, 0, 3;
+    %delay 100, 0;
+    %vpi_call 2 22 "$display", v0x129625fc0_0 {0 0 0};
+    %pushi/vec4 9669, 0, 32;
+    %store/vec4 v0x129625e10_0, 0, 32;
+    %pushi/vec4 8989, 0, 32;
+    %store/vec4 v0x129625ea0_0, 0, 32;
+    %pushi/vec4 3, 0, 3;
+    %store/vec4 v0x129625f30_0, 0, 3;
+    %delay 100, 0;
+    %vpi_call 2 26 "$display", v0x129625fc0_0 {0 0 0};
+    %pushi/vec4 9669, 0, 32;
+    %store/vec4 v0x129625e10_0, 0, 32;
+    %pushi/vec4 8989, 0, 32;
+    %store/vec4 v0x129625ea0_0, 0, 32;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_ALU.v";
+    "ALU.v";

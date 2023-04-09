@@ -42,7 +42,7 @@ main:
         add $t1, $t1, $s5
         l.s $f12, 0($t1)
         li $v0, 2
-        syscall
+        syscall	 
         addi $t0, 1
         li $v0, 4
         la $a0, end_line

@@ -40,7 +40,6 @@ initial begin
 end
 always@(posedge clk)
     begin
-        //$display("PC=%b",PC);
         case(instruction[31:26])
         6'd0: begin
             //implement add,sub,addu,subu,and,or,sll,slt,srl, ***jr***
@@ -57,11 +56,10 @@ always@(posedge clk)
                 #10
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
-            dm_din=32'b0;
-            dm_mode=1'b1;
-            dm_add=8'b0;
+                dm_din=32'b0;
+                dm_mode=1'b1;
+                dm_add=8'b0;
                 PC=PC+1;
-                $display("sll + B = %d A = %d output = %d",alu_B,alu_A,alu_output);
             end
             6'b100000:begin
                 //implement add
@@ -74,11 +72,10 @@ always@(posedge clk)
                 #10
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
-            dm_din=32'b0;
-            dm_mode=1'b1;
-            dm_add=8'b0;
+                dm_din=32'b0;
+                dm_mode=1'b1;
+                dm_add=8'b0;
                 PC=PC+1;
-                $display("add + %d",registers[instruction[15:11]]);
             end
             6'b100001:begin
                 //implement addu
@@ -197,42 +194,12 @@ always@(posedge clk)
                 dm_din=32'b0;
                 dm_mode=1'b1;
                 PC=PC+1;
-                dm_add=8'd0;
-                #10
-                $display(dm_dout);
-                dm_add=8'd4;
-                #10
-                $display(dm_dout);
-                dm_add=8'd8;
-                #10
-                $display(dm_dout);
-                dm_add=8'd12;
-                #10
-                $display(dm_dout);
-                dm_add=8'd16;
-                #10
-                $display(dm_dout);
-                dm_add=8'd20;
-                #10
-                $display(dm_dout);
-                dm_add=8'd24;
-                #10
-                $display(dm_dout);
-                dm_add=8'd28;
-                #10
-                $display(dm_dout);
-                dm_add=8'd32;
-                #10
-                $display(dm_dout);
-                dm_add=8'd36;
-                #10
-                $display(dm_dout);
-                dm_add=8'd40;
-                #10
-                $display(dm_dout);
-                dm_add=8'd44;
-                #10
-                $display(dm_dout);
+                for(i=0;i<45;i=i+4)
+                begin
+                    dm_add=i;
+                    #10
+                    $display(dm_dout);
+                end
                 
             end
             default : begin
@@ -265,7 +232,6 @@ always@(posedge clk)
             dm_mode=1'b1;
             dm_add=8'd0;
             PC=PC+1;
-            $display("addi + %d",registers[instruction[20:16]]);
         end
         6'b001001: begin
             //implement addiu
@@ -328,7 +294,6 @@ always@(posedge clk)
             dm_we=dm_we;
             dm_din=dm_din;
             PC=PC+1;
-            $display("lw + %d",registers[instruction[20:16]]);
         end
         6'b101010:begin
             //implement sw
@@ -347,7 +312,6 @@ always@(posedge clk)
             dm_mode=1'b1;
             dm_we=1'b1;
             PC=PC+1;
-            $display("Sw + at %d with %d", dm_add,dm_din);
         end
         6'b000100:begin
             //implement beq
@@ -406,7 +370,6 @@ always@(posedge clk)
             dm_mode=1'b1;
             dm_add=8'd0;
             PC=alu_output ? PC+1 : PC+instruction[15:0];
-            $display("bgte PC= %d",PC);
         end
         6'd41:begin
             //implement ble
@@ -436,7 +399,6 @@ always@(posedge clk)
             dm_mode=1'b1;
             dm_add=8'd0;
             PC=alu_output ? PC+1 : PC+instruction[15:0];
-            $display("bleq PC= %d",PC);
         end
         6'b000010:begin
             //implement j

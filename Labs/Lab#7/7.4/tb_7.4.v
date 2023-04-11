@@ -4,9 +4,9 @@ main_file uut (.clk(clk));
 
 initial begin
     clk=1'b0;
-    forever #10 clk=~clk;
+    forever #50 clk=~clk;
 end 
 initial begin
-    #10000 $finish;
+    #(108000) $finish;
 end
 endmodule

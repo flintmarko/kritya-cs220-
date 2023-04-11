@@ -6,7 +6,7 @@ module ALU
     output reg [31:0] ALUout
 );
 
-always @(ALUop)
+always @(ALUop,A,B)
 begin
     case(ALUop)
         4'b0000: ALUout = 32'b0;

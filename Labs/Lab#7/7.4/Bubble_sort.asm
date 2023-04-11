@@ -5,7 +5,7 @@ n: .asciiz "\n"
 .globl main
 main:
     la $s0, a
-    li $s1, 11
+    li $s1, 10
     addi $t1, $zero, 0
     loop1:
         bge $t1, $s1, end1

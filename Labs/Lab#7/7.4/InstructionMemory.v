@@ -1,10 +1,9 @@
-module Dragonfangs_ins
+module veda_Instruction
 (clk,reset,write_enable,address,data_in,mode,data_out);
 input mode,clk,reset,write_enable;
 input [4:0]address;
 input [31:0]data_in;
 output reg [31:0]data_out;
-//reg [31:0] dummy;
 reg [31:0] memory [16:0];
 integer i;
 initial begin
@@ -24,7 +23,7 @@ initial begin
     memory[13] = 32'b00100000010000100000000000000001; // addi $t1, $t1, 1
     memory[14] = 32'b00001000000000000000000000000001; // j loop1->where PC=1
     memory[15] = 32'b00000000000000000000000000001000; // jr 
-    memory[16] = 32'b11111111111111111111111111111111; // shit 
+    memory[16] = 32'b11111111111111111111111111111111; // The END of the program
 end
 always@(address)
 begin

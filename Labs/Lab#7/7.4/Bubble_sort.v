@@ -1,28 +1,28 @@
-`include "veda_ins.v"
-`include "veda_datamem.v"
+`include "InstructionMemory.v"
+`include "DataMemory.v"
 `include "alu.v"
 module main_file 
 (
     input wire clk
 );
-reg [31:0] registers [31:0];
-wire [31:0] instruction;
-reg [4:0] PC;
-reg im_reset,im_we,im_mode;
-reg [31:0] im_din;
-reg dm_reset,dm_we,dm_mode;
-reg [7:0]dm_add;
-reg[31:0]dm_din;
-wire[31:0]dm_dout;
-wire [31:0]alu_output;
-reg [31:0]alu_A,alu_B;
-reg [3:0]alu_op;
-integer i;
-reg [31:0] arr [10:0];
-ALU instance0(alu_A,alu_B,alu_op,alu_output);
-Dragonfangs_ins instance1(.clk(clk),.reset(im_reset),.write_enable(im_we),.address(PC),.data_in(im_din),.mode(im_mode),.data_out(instruction));
-Dragonfangs_data instance2(.clk(clk),.reset(dm_reset),.write_enable(dm_we),.address(dm_add),.data_in(dm_din),.mode(dm_mode),.data_out(dm_dout));
-initial begin
+reg [31:0] registers [31:0]; // implementing register memory 
+wire [31:0] instruction; // instruction memory output
+reg [4:0] PC; // program counter
+reg im_reset,im_we,im_mode; // instruction memory control signals like reset, write enable and mode
+reg [31:0] im_din; // instruction memory data input (This was used to make a call for the instruction memory)
+reg dm_reset,dm_we,dm_mode; // data memory control signals like reset, write enable and mode
+reg [7:0]dm_add; // data memory address
+reg[31:0]dm_din; // data memory data input
+wire[31:0]dm_dout; // data memory data output
+wire [31:0]alu_output; // ALU output
+reg [31:0]alu_A,alu_B; // ALU inputs
+reg [3:0]alu_op; // ALU operation
+integer i; // for loop counter
+ALU instance0(alu_A,alu_B,alu_op,alu_output); // ALU instance
+veda_Instruction instance1(.clk(clk),.reset(im_reset),.write_enable(im_we),.address(PC),.data_in(im_din),.mode(im_mode),.data_out(instruction)); // instruction memory instance
+veda_data instance2(.clk(clk),.reset(dm_reset),.write_enable(dm_we),.address(dm_add),.data_in(dm_din),.mode(dm_mode),.data_out(dm_dout)); // data memory instance
+        // initial block
+initial begin 
     im_reset=1'b0;
     dm_reset=1'b0;
     im_we=1'b0;
@@ -33,11 +33,12 @@ initial begin
     im_din=32'b0;
     dm_din=32'b0;
     dm_add=8'b0;
-    registers[0]=32'b0;
-    registers[23]=32'd63;
-    registers[9] = 32'd0;
-    registers[10] = 32'd11;
+    registers[0]=32'b0; // $zero
+    registers[23]=32'd63; // $sp
+    registers[9] = 32'd0; // $s0 = address of array 
+    registers[10] = 32'd11; // $s1 = size of array (= 11 in our example)
 end
+         // always block
 always@(posedge clk)
     begin
         case(instruction[31:26])
@@ -83,7 +84,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end   
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=registers[instruction[25:21]];
                 alu_op=4'b0001;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -98,7 +99,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=registers[instruction[25:21]];
                 alu_op=4'b0010;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -113,7 +114,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=registers[instruction[25:21]];
                 alu_op=4'b0010;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -128,7 +129,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=registers[instruction[25:21]];
                 alu_op=4'b0011;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -143,7 +144,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=registers[instruction[25:21]];
                 alu_op=4'b0100;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -158,7 +159,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=registers[instruction[25:21]];
                 alu_op=4'b1000;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -173,7 +174,7 @@ always@(posedge clk)
                     registers[i]=registers[i];
                 end
                 alu_A=registers[instruction[20:16]];
-                alu_B=registers[instruction[10:6]];
+                alu_B=instruction[10:6];
                 alu_op=4'b0110;
                 registers[instruction[15:11]]=alu_output;
                 dm_we=1'b0;
@@ -194,6 +195,7 @@ always@(posedge clk)
                 dm_din=32'b0;
                 dm_mode=1'b1;
                 PC=PC+1;
+                //printing the output only once when the program ends
                 for(i=0;i<45;i=i+4)
                 begin
                     dm_add=i;
@@ -371,7 +373,7 @@ always@(posedge clk)
             dm_add=8'd0;
             PC=alu_output ? PC+1 : PC+instruction[15:0];
         end
-        6'd41:begin
+        6'b101001:begin
             //implement ble
             for(i=0;i<32;i=i+1)begin
                     registers[i]=registers[i];
@@ -415,7 +417,7 @@ always@(posedge clk)
             dm_add=8'd0;
             PC = instruction[25:0];
         end
-        6'd3:begin
+        6'd000011:begin
             //implement jal
             // ra<=CP;
             for(i=0;i<32;i=i+1)begin
@@ -431,7 +433,7 @@ always@(posedge clk)
             registers[24]=PC+1;
             PC=instruction[25:0];
         end
-        6'd10:begin
+        6'b001010:begin
             //implement slti
             for(i=0;i<32;i=i+1)begin
                     registers[i]=registers[i];
